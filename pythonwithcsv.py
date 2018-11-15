@@ -19,9 +19,9 @@ with open('data/googeplaystore.csv') as csvfile:
      		line_count += 1 # increment the line count for the next loop
      	else:
      		# grab the ratings and push them into the ratings array
-     		ratingsDatab= [2]
+     		ratingsData= row[2]
      		ratingsData = ratingsData.replace("NaN", "0")
-     		ratings.append(float(ratingsData)) # int will turn a string (piece of text) into a number
+     		ratings.append(float(ratingsData)) # int  turn a string (piece of text) into a number
      		# print('pushing ratings data into the ratings array')
      		installData = row[5]
      		installData = installData.replace(",", "") # get rid of the commas
@@ -31,10 +31,10 @@ with open('data/googeplaystore.csv') as csvfile:
      		line_count += 1
 
 # get some values we can work with
-# how many ratings are 4+
+# how many ratings are 4+?
 # how many are below 2?
 # how many are the middle?
-np_reviews = np.array(ratings) # turn a plain Python list into a Numpy array
+np_ratings = np.array(ratings) # turn a plain Python list into a Numpy array
 popular_apps = np_ratings > 4
 print("popular apps:", len(np_ratings[popular_apps]))
 
@@ -42,7 +42,7 @@ percent_popular = int(len(np_ratings[popular_apps]) / len(np_ratings) * 100)
 print(percent_popular)
 
 unpopular_apps = np_ratings < 4
-print("popular apps:", len(np_ratings[unpopular_apps]))
+print("unpopular apps:", len(np_ratings[unpopular_apps]))
 
 percent_unpopular = int(len(np_ratings[unpopular_apps]) / len(np_ratings) * 100)
 print(percent_unpopular)
@@ -56,7 +56,7 @@ sizes = [percent_unpopular, kinda_popular, percent_popular]
 colors = ['yellowgreen', 'lightgreen', 'lightskyblue']
 explode = (0.1, 0.1, 0.15)
 
-plt.pie(sizes, explopde=explode, colors=colors, autopct='%1.1f%', shadow=True, startangle=140)
+plt.pie(sizes, explode=explode, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
 
 plt.axis('equal')
 plt.legend(labels, loc=1)
